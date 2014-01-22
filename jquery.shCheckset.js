@@ -1,7 +1,7 @@
 /*!
- * jQuery shCheckset v1.0-pre
+ * jQuery shCheckset v1.0
  * http://jquery.sunhater.com/shCheckset
- * 2014-01-20
+ * 2014-01-22
  *
  * Copyright (c) 2010-2014 Pavel Tzonkov <sunhater@sunhater.com>
  * Dual licensed under the MIT and GPL licenses.
@@ -22,20 +22,6 @@
             widthOffset: 0
         },
 
-        containerCSS = {
-            overflow: "hidden"
-        },
-
-        labelsContainerCSS = {
-            overflow: "auto"
-        },
-
-        labelCSS = {
-            display: "block",
-            whiteSpace: "nowrap",
-            float: "none"
-        },
-
         addOption = function(select, value, text) {
             try {
                 select.add(new Option(text, value), null);
@@ -47,9 +33,9 @@
         $.extend(c, settings);
 
         if (!scrollbarWidth) {
-            var div = $('<div />')
+            var div = $('<div></div>')
                 .css({width: 100, height: 100, overflow: 'auto', position: 'absolute', top: -1000, left: -1000})
-                .prependTo('body').append('<div />').find('div').css({width: '100%', height: 200});
+                .prependTo('body').append('<div></div>').find('div').css({width: '100%', height: 200});
             scrollbarWidth = 100 - div.width();
             div.parent().remove();
         }
@@ -60,14 +46,6 @@
             if (!$(t).is('select') || !t.length)
                 return;
 
-            $('body').append('<select multiple="multiple" style="display:none"></select>');
-            var select = $('select').last().get(0);
-
-            $(t).find('option').each(function(i) {
-                addOption(select, t.value, this.text);
-                select.options[i].selected = this.selected;
-            });
-
             $(t).after('<div class="' + c.namespace + '"></div>');
 
             var div = $(t).next().get(0),
@@ -75,45 +53,40 @@
                 outerCSS = {
                     width: t.style.width ? t.style.width : $(t).outerWidth() + 'px',
                     height: t.style.height ? t.style.height : $(t).outerHeight() + 'px'
-                },
-                font = $(t).find('option');
-
-            font = {
-                fontFamily: font.css('fontFamily'),
-                fontSize: font.css('fontSize'),
-                fontStyle: font.css('fontStyle'),
-                fontVariant: font.css('fontVariang'),
-                fontWeight : font.css('fontWeight'),
-                whitespace: "nowrap",
-                float: "left"
-            };
-
-            $.extend(outerCSS, containerCSS);
+                };
 
             if (!name) name = c.namespace + '[]';
             else if (name.substr(name.length - 2, 2) != "[]")
                 name += "[]";
 
-            $(t).detach();
-
             $(div).html((c.search ? '<input type="text" placeholder="' + c.labels.search + '" />' : "") + '<div></div>');
 
             var search = $(div).find('input[type="text"]'),
-                maxWidth = 0,
+                maxWidth = 0, i = 0,
                 lc = $(div).find('div');
 
-            lc.css(labelsContainerCSS).css({
-                height: parseInt(outerCSS.height) - search.outerHeight(true) - parseInt(lc.css('marginTop')) - parseInt(lc.css('marginBottom')) - parseInt(lc.css('paddingTop')) - parseInt(lc.css('paddingBottom')) - parseInt(lc.css('borderTopWidth')) - parseInt(lc.css('borderBottomWidth')) + 'px',
+            lc.css({
+                overflow: "auto",
+                height: parseInt(outerCSS.height) - search.outerHeight(true)
+                    - parseInt(lc.css('marginTop')) - parseInt(lc.css('marginBottom'))
+                    - parseInt(lc.css('paddingTop')) - parseInt(lc.css('paddingBottom'))
+                    - parseInt(lc.css('borderTopWidth')) - parseInt(lc.css('borderBottomWidth'))
+                    + 'px'
             });
 
-            $(select).find('option').each(function(i) {
-                var label, checkbox, w
-                    t = this,
-                    cid = c.namespace + '_' + name.substr(0, name.length - 2) + t.value + '_' + i;
+            $(t).find('option').each(function() {
+                var label, checkbox, w, cid, t = this;
+
+                do {
+                    cid = c.namespace + '_' + name.substr(0, name.length - 2) + '_' + i++;
+                } while ($('#' + cid).get(0));
 
                 $(div).find('div').append('<label></label>');
                 label = $(div).find('label').last();
-                label.attr('for', cid).html('<input type="checkbox" /><span>' + t.text + '</span>').css(font);
+                label.attr('for', cid).html('<input type="checkbox" /><span>' + t.text + '</span>').css({
+                    whitespace: "nowrap",
+                    'float': "left"
+                });
 
                 checkbox = label.find('input').first();
                 checkbox.attr({
@@ -134,16 +107,20 @@
                     maxWidth = w;
             });
 
-            $(div).find('label[for]').css(labelCSS).find('label').detach();
+            $(div).find('label[for]').css({
+                display: "block",
+                whiteSpace: "nowrap",
+                'float': "none"
+            }).find('label').detach();
 
             $(div).find('input[type="checkbox"]').click(function() {
-                var t = this,
-                    label = $(t).parents('label[for]').first(),
-                    value = $(t).val();
+                var th = this,
+                    label = $(th).parents('label[for]').first(),
+                    value = $(th).val();
 
-                $(select).find('option[value="' + value + '"]').get(0).selected = t.checked;
+                $(t).find('option[value="' + value + '"]').get(0).selected = th.checked;
 
-                if (t.checked)
+                if (th.checked)
                     label.addClass('checked');
                 else
                     label.removeClass('checked');
@@ -159,7 +136,19 @@
 
             $(div).css(outerCSS);
 
-            search.attr('spellcheck', false).css('width', "100%").keyup(function() {
+            search.attr({
+                spellcheck: false
+
+            }).css({
+                width: parseInt(outerCSS.width) - parseInt(search.css('borderRightWidth')) - parseInt(search.css('borderLeftWidth')) - parseInt(search.css('paddingRight')) - parseInt(search.css('paddingLeft')) - parseInt(search.css('marginRight')) - parseInt(search.css('marginLeft')) + 'px'
+
+            }).focus(function() {
+                lc.addClass('focus');
+
+            }).blur(function() {
+                lc.removeClass('focus');
+
+            }).keyup(function() {
                 var search = $(this).val(),
                     lastSpace = (search.substr(search.length - 1, 1) == " ");
 
@@ -167,11 +156,12 @@
 
                 $(this).val(search + (lastSpace ? " " : ""));
 
-                $(select).find('option').each(function(i) {
+                $(t).find('option').each(function(i) {
                     $(div).find('label[for="' + c.namespace + '_' + (name.substr(0, name.length - 2) + this.value + '_' + i) + '"]')
                         .css('display', (search.length && (this.text.toLowerCase().indexOf(search.toLowerCase()) == -1)) ? 'none' : 'block');
                 });
             });
+            $(t).detach();
         });
     };
 })(jQuery);
