@@ -1,7 +1,7 @@
 /*!
- * jQuery shCheckset v1.0
+ * jQuery shCheckset v1.1
  * http://jquery.sunhater.com/shCheckset
- * 2014-01-22
+ * 2014-01-24
  *
  * Copyright (c) 2010-2014 Pavel Tzonkov <sunhater@sunhater.com>
  * Dual licensed under the MIT and GPL licenses.
@@ -156,9 +156,8 @@
 
                 $(this).val(search + (lastSpace ? " " : ""));
 
-                $(t).find('option').each(function(i) {
-                    $(div).find('label[for="' + c.namespace + '_' + (name.substr(0, name.length - 2) + this.value + '_' + i) + '"]')
-                        .css('display', (search.length && (this.text.toLowerCase().indexOf(search.toLowerCase()) == -1)) ? 'none' : 'block');
+                $(div).find('label').each(function(i) {
+                    $(this).css('display', (search.length && ($(this).find('span').text().toLowerCase().indexOf(search.toLowerCase()) == -1)) ? 'none' : 'block');
                 });
             });
             $(t).detach();
