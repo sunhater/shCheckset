@@ -1,7 +1,7 @@
 /*!
- * jQuery shCheckset v1.1
+ * jQuery shCheckset v1.2
  * http://jquery.sunhater.com/shCheckset
- * 2014-01-24
+ * 2014-02-02
  *
  * Copyright (c) 2010-2014 Pavel Tzonkov <sunhater@sunhater.com>
  * Dual licensed under the MIT and GPL licenses.
@@ -99,8 +99,10 @@
                 if (t.selected)
                     label.addClass('checked');
 
-                if (c.uniform && $.uniform)
+                if (c.uniform && $.uniform) {
                     checkbox.uniform();
+                    search.uniform();
+                }
 
                 w = label.outerWidth(true);
                 if (maxWidth < w)
@@ -135,12 +137,11 @@
                 outerCSS.width = maxWidth + scrollbarWidth + c.widthOffset + parseInt(lc.css('marginLeft')) + parseInt(lc.css('marginRight')) + parseInt(lc.css('paddingLeft')) + parseInt(lc.css('paddingRight')) + parseInt(lc.css('borderLeftWidth')) + parseInt(lc.css('borderRightWidth'));
 
             $(div).css(outerCSS);
-
             search.attr({
                 spellcheck: false
 
             }).css({
-                width: parseInt(outerCSS.width) - parseInt(search.css('borderRightWidth')) - parseInt(search.css('borderLeftWidth')) - parseInt(search.css('paddingRight')) - parseInt(search.css('paddingLeft')) - parseInt(search.css('marginRight')) - parseInt(search.css('marginLeft')) + 'px'
+                width: parseInt(outerCSS.width) - (document.doctype ? (parseInt(search.css('borderRightWidth')) + parseInt(search.css('borderLeftWidth')) + parseInt(search.css('paddingRight')) + parseInt(search.css('paddingLeft')) + parseInt(search.css('marginRight')) + parseInt(search.css('marginLeft'))) : 0) + 'px'
 
             }).focus(function() {
                 lc.addClass('focus');
