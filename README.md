@@ -1,8 +1,6 @@
 #shCheckset
-Multiple select box alternative.
 
 Pavel Tzonkov (sunhater@sunhater.com)
-
 http://jquery.sunhater.com/shCheckset
 
 ##Description
