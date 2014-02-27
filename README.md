@@ -36,17 +36,17 @@ Just include jQuery and shCheckset source files into the head tag.
 To create a checkset widget, first you have to put a **&lt;select multiple&gt;** tag at the right spot on the page.
 
 ```html
-<select id="checkset" multiple="multiple" name="test[]" style="height:200px">
+<select id="checkset" multiple name="test[]" style="height:200px">
     <option value="1">Example Option One</option>
-    <option value="2" selected="selected">Example Option Two</option>
+    <option value="2" selected>Example Option Two</option>
     <option value="3">Example Option Three</option>
-    <option value="4" selected="selected">Example Option Four</option>
-    <option value="5" selected="selected">Example Option Five</option>
+    <option value="4" selected>Example Option Four</option>
+    <option value="5" selected>Example Option Five</option>
     <option value="6">Example Option Six</option>
     <option value="7">Example Option Seven</option>
-    <option value="8" selected="selected">Example Option Eight</option>
-    <option value="9" selected="selected">Example Option Nine</option>
-    <option value="10" selected="selected">Example Option Ten</option>
+    <option value="8" selected>Example Option Eight</option>
+    <option value="9" selected>Example Option Nine</option>
+    <option value="10" selected>Example Option Ten</option>
     <option value="11">Example Option Eleven</option>
     <option value="12">Example Option Twelve</option>
 </select>
@@ -91,9 +91,9 @@ Whether to use Uniform jQuery plugin for the checkboxes. It is safe to leave thi
 Let see an example and how the select tag transforms.
 
 ```html
-<select multiple="multiple" name="test[]">
+<select multiple name="test[]">
     <option value="1">Example Option One</option>
-    <option value="2" selected="selected">Example Option Two</option>
+    <option value="2" selected>Example Option Two</option>
 </select>
 ```
 
@@ -108,7 +108,7 @@ When the **shCheckset()** is applied, the select box will be detached from the p
             <span>Example Option One</span>
         </label>
         <label for="shcs_test2_1" class="checked">
-            <input type="checkbox" name="test[]" id="shcs_test_1" value="2" checked="checked" />
+            <input type="checkbox" name="test[]" id="shcs_test_1" value="2" checked />
             <span>Example Option Two</span>
         </label>
     </div>
