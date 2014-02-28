@@ -103,11 +103,11 @@ When the **shCheckset()** is applied, the select box will be detached from the p
 <div class="shcs">
     <input type="text" placeholder="Search..." spellcheck="false" />
     <div>
-        <label for="shcs_test1_0">
+        <label for="shcs_test_0">
             <input type="checkbox" name="test[]" id="shcs_test_0" value="1" />
             <span>Example Option One</span>
         </label>
-        <label for="shcs_test2_1" class="checked">
+        <label for="shcs_test_1" class="checked">
             <input type="checkbox" name="test[]" id="shcs_test_1" value="2" checked />
             <span>Example Option Two</span>
         </label>
