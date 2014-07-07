@@ -2,7 +2,7 @@
 
 shCheckset is replacement of the standard multiple **&lt;select&gt;** HTML tag.
 
-Pavel Tzonkov (sunhater@sunhater.com).
+Pavel Tzonkov (sunhater@sunhater.com)  
 http://jquery.sunhater.com/shCheckset
 
 
