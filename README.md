@@ -1,4 +1,4 @@
-#shCheckset
+# shCheckset
 
 shCheckset is replacement of the standard multiple **&lt;select&gt;** HTML tag.
 
@@ -6,16 +6,16 @@ Pavel Tzonkov (sunhater@sunhater.com)
 http://jquery.sunhater.com/shCheckset
 
 
-##Licenses
+## Licenses
 * GNU General Public License, version 3
 * MIT License
 
-##Features
+## Features
 * Optional search box to filter the options.
 * Uniform compatibility.
 * Customizable CSS "namespaces".
 
-##Installation
+## Installation
 Just include jQuery and shCheckset source files into the head tag.
 
 ```html
@@ -32,7 +32,7 @@ Just include jQuery and shCheckset source files into the head tag.
 </html>
 ```
 
-##Creation
+## Creation
 To create a checkset widget, first you have to put a **&lt;select multiple&gt;** tag at the right spot on the page.
 
 ```html
@@ -64,7 +64,7 @@ Also you can apply the checkset to all multiple **&lt;select&gt;** tags on the p
 $('select[multiple]').shCheckset();
 ```
 
-##Options
+## Options
 
 | labels | Type: Object | Default: {search:"Search..."} |
 |--------|--------------|-------------------------------|
@@ -86,7 +86,7 @@ If it is set to true, a search box will be added.
 
 Whether to use Uniform jQuery plugin for the checkboxes. It is safe to leave this option true. If the Uniform plugin is not included the option will be set to false automaticaly.
 
-##Transformation and CSS tips
+## Transformation and CSS tips
 
 Let see an example and how the select tag transforms.
 
